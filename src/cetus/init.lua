@@ -16,8 +16,13 @@ local setRank = require(script.setRank)
 ]]
 return function (config)
     local client = {
-        baseUrl = "http://localhost:4000"
+        baseUrl = "https://api.cetus.app"
     }
+
+    -- Internal: For testing only.
+    if config._overrideBase then
+        client.baseUrl = config._overrideBase
+    end
     if config.token then
        client._token = config.token
     else
