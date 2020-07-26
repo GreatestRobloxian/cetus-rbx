@@ -1,6 +1,7 @@
 local http = require(script.http)
 local getRank = require(script.getRank)
 local setRank = require(script.setRank)
+local assertConfig = require(script.assertConfig)
 --[[
     https://cetus.app: Lua SDK
     Source: https://github.com/cetus-app/cetus-rbx
@@ -10,27 +11,25 @@ local setRank = require(script.setRank)
 
     Availible client options:
         * token (required): Your authorisation token for your group. Get one here: https://cetus.app/dashboard
-
-
-
 ]]
-return function (config)
-    local client = {
-        baseUrl = "https://api.cetus.app"
-    }
 
-    -- Internal: For testing only.
-    if config._overrideBase then
-        client.baseUrl = config._overrideBase
-    end
-    if config.token then
-       client._token = config.token
-    else
-        error("Cetus-Rbx: Failed to start: No token provided.")
-    end
-    client.makeRequest = http(client)
-    client.getRank = getRank(client)
-    client.setRank = setRank(client)
+local clientPrototype = {}
+clientPrototype.baseUrl = "https://api.cetus.app"
+clientPrototype.http = http
+clientPrototype.setRank = setRank
+clientPrototype.getRank = getRank
 
-    return client
+--No need to have two tables if we can only use one!
+clientPrototype.__index = clientPrototype
+clientPrototype.__metatable = "locked"
+
+local function new (config)
+    assertConfig(config)
+
+    return setmetatable({
+        baseUrl = config._overrideBase;
+        _token = config.token;
+    }, clientPrototype)
 end
+
+return new
