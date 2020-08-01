@@ -1,5 +1,4 @@
-local httpService = game:GetService("HttpService");
-
+local httpService = game:GetService("HttpService")
 --[[
     The main function used to interact with the Cetus API.
     If successful, this function will return the body of the response.
@@ -9,8 +8,11 @@ local httpService = game:GetService("HttpService");
             status: number (The http status code),
             message: string, The HTTP error message
             name: string The error name (often something like UnauthorisedError)
+            errors?: ErrorInfo[]
         }
     }
+    The errors field is optional and will only exist if it is a bad request where a parameter has failed validation (i.e. invalid id)
+
     In the event of an error occuring *making* the request, (an error which would normally be thrown)
     This will return the status code as 0, the name as "HttpError" and the message as the Roblox error message
     If an error is returned from the API it is returned as-is.
@@ -27,10 +29,10 @@ local function makeRequest (client, method, url, body)
     }
     if body then
         headers["Content-Type"] = "application/json"
-        if type(body) == "string" then
-            request.body = httpService:JSONEncode(body)
+        if type(body) ~= "string" then
+            request.Body = httpService:JSONEncode(body)
         else
-            request.body = body
+            request.Body = body
         end
     end
     local succ, returnVal = pcall(function ()
@@ -43,7 +45,8 @@ local function makeRequest (client, method, url, body)
                 error = {
                     status = response.StatusCode,
                     message = decoded.message,
-                    name = decoded.name
+                    name = decoded.name,
+                    errors = decoded.errors
                 }
             }
         end
