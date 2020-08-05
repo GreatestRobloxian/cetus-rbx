@@ -3,6 +3,9 @@ The official Lua SDK for interacting with the Cetus API from Roblox games.
 This SDK, like our platform, is in Alpha and is not quite fully baked yet.
 Expect a lot of variation between versions until we hit v1.x.x!
 
+> **Warning**: The docs provided here may not be kept up to date. See the official docs by opening the group in our dashboard and clicking "Lua SDK".
+> [Dashboard](https://cetus.app/dashboard)
+
 ## Installation
 ### Method 1: Rojo
 You must have Rojo installed and configured
