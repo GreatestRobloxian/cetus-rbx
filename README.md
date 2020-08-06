@@ -61,11 +61,17 @@ local client = Cetus({
 ### Client Methods
 > More Documentation coming soon
 #### setRank
-`client.setRank(userId: number)`
+`client:setRank(userId: number)`
 
 #### getRank
-`client.getRank(userId: number)`
+`client:getRank(userId: number)`
 
+#### exile
+`client:exile(userId: number)`
+
+#### shout
+`client:shout(message: string)`
+Post string `message` to the Group shout. Pass an empty string to remove the Group shout.
 
 ## To-do list
 * Add rate limit support

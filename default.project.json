@@ -1,19 +1,7 @@
 {
     "name": "cetus-rbx",
     "tree": {
-        "$className": "DataModel",
-
-		"ServerStorage": {
-          "$className": "ServerStorage",
-			"$path": "src"
-        },
-        "HttpService": {
-            "$className": "HttpService",
-            "$properties": {
-              "HttpEnabled": true
-            }
-          }
+        "$path": "src"
+    
     }
-
-
 }

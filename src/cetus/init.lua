@@ -9,7 +9,7 @@ local assertConfig = require(script.util.assertConfig)
     Availible client options:
         * token (required): Your authorisation token for your group. Get one here: https://cetus.app/dashboard
 
-    Version: v0.10.
+    Version: v0.2.0
 ]]
 
 local clientPrototype = {}
