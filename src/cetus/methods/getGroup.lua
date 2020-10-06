@@ -11,12 +11,10 @@ return function (client)
         end
     end
     local result =  client:makeRequest("GET", "/v1/roblox/info/")
-    if result.error then
-        return result
-    else
+    if not result.error then
         cache = result
         client._groupId = result.id
         cacheSetAt = os.time()
-        return result
     end
+    return result
 end
